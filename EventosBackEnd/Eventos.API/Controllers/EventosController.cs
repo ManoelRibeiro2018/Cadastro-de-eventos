@@ -1,4 +1,5 @@
 ﻿using Eventos.API.Domain;
+using Eventos.API.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,8 @@ namespace Eventos.API.Controllers
 {
     public class EventosController : ControllerBase
     {
-        private readonly EventoDbContext _dbContext;
-        public EventoController(EventoDbContext eventoDbContext)
+        private readonly EventosDbContext _dbContext;
+        public EventosController(EventosDbContext eventoDbContext)
         {
             _dbContext = eventoDbContext;
         }
