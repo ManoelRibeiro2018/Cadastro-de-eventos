@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Eventos.API.Controllers
 {
+    [Route("api/eventos")]
     public class EventosController : ControllerBase
     {
         private readonly EventosDbContext _dbContext;
@@ -22,28 +23,32 @@ namespace Eventos.API.Controllers
             var evento = _dbContext.Eventos.ToList();
             return Ok(evento);
         }
+
+
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var evento = _dbContext.Eventos.SingleOrDefault(e => e.Id == id);
             if (evento == null)
             {
-                return NoContent();
+                return NotFound();
             }
-
             return Ok(evento);
         }
+
+
         [HttpPost]
-        public IActionResult Post([FromBody] Evento model)
+        public IActionResult Insert([FromBody] Evento model)
         {
             _dbContext.Eventos.Add(model);
             _dbContext.SaveChanges();
+
             return CreatedAtAction(
                 nameof(GetById),
                 new { id = model.Id },
-                model
-                );
+                model);
         }
+
 
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Evento model)
@@ -57,6 +62,7 @@ namespace Eventos.API.Controllers
             _dbContext.SaveChanges();
             return NoContent();
         }
+
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
