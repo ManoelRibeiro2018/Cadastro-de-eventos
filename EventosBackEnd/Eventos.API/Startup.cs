@@ -42,7 +42,7 @@ namespace Eventos.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
+                app.UseCors();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Eventos.API v1"));
             }
@@ -52,7 +52,9 @@ namespace Eventos.API
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseCors(u=> u.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin());
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
