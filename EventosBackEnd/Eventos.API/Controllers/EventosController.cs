@@ -1,4 +1,5 @@
 ﻿using Eventos.API.Domain;
+using Eventos.API.Interface;
 using Eventos.API.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,24 +12,34 @@ namespace Eventos.API.Controllers
     [Route("api/eventos")]
     public class EventosController : ControllerBase
     {
-        private readonly EventosDbContext _dbContext;
-        public EventosController(EventosDbContext eventoDbContext)
+        private readonly IEventoInterface _dbContext;
+        public EventosController(IEventoInterface eventoDbContext)
         {
             _dbContext = eventoDbContext;
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAllEvento()
         {
-            var evento = _dbContext.Eventos.ToList();
+            var evento = await _dbContext.GetAllEventosAsync();
             return Ok(evento);
         }
 
+        [HttpGet("tema/{tema}")]
+        public async Task<IActionResult> GetByTema(string tema)
+        {
+            var evento = await _dbContext.GetAllEventosByTemaAsync(tema);
+            if(evento == null)
+            {
+                return NotFound("Não encontrado");
+            }
+            return Ok(evento);
+        }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var evento = _dbContext.Eventos.SingleOrDefault(e => e.Id == id);
+            var evento = await _dbContext.GetEventoByIdAsync(id);
             if (evento == null)
             {
                 return NotFound();
@@ -38,42 +49,33 @@ namespace Eventos.API.Controllers
 
 
         [HttpPost]
-        public IActionResult Insert([FromBody] Evento model)
+        public async Task<IActionResult> Insert([FromBody] Evento model)
         {
-            _dbContext.Eventos.Add(model);
-            _dbContext.SaveChanges();
+            var evento = await _dbContext.AddEvento(model);
 
             return CreatedAtAction(
                 nameof(GetById),
-                new { id = model.Id },
+                new { id = evento.Id },
                 model);
         }
 
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Evento model)
-        {
-            var evento = _dbContext.Eventos.SingleOrDefault(e => e.Id == id);
-            if (evento == null)
-            {
-                return NotFound();
-            }
-            evento.Update(model.Local, model.DataEvento, model.Tema, model.QtdPessoas, model.Lote, model.ImageUrl);
-            _dbContext.SaveChanges();
+        public  IActionResult Put(int id, [FromBody] Evento model)
+        {           
+            _dbContext.UpdateEvento(id,model);            
             return NoContent();
         }
 
-
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var evento = _dbContext.Eventos.SingleOrDefault(e => e.Id == id);
+            var evento = await _dbContext.GetEventoByIdAsync(id);
             if (evento == null)
             {
                 return Ok();
             }
-            _dbContext.Eventos.Remove(evento);
-            _dbContext.SaveChanges();
+            _dbContext.DeleteEvento(id);
             return NoContent();
         }
     }

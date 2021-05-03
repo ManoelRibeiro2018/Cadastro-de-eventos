@@ -1,4 +1,6 @@
+using Eventos.API.Interface;
 using Eventos.API.Persistence;
+using Eventos.API.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,7 +30,13 @@ namespace Eventos.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<EventosDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("Conexao")));
+            services.AddDbContext<EventosDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Conexao")));
+            services.AddScoped<IEventoInterface, EventoRepository>();
+            services.AddScoped<IPalestranteInterface, PalestranteRepository>();
+            services.AddControllers()
+                .AddNewtonsoftJson(n => n.SerializerSettings.ReferenceLoopHandling =
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -52,7 +60,7 @@ namespace Eventos.API
             app.UseRouting();
 
             app.UseAuthorization();
-            app.UseCors(u=> u.AllowAnyHeader()
+            app.UseCors(u => u.AllowAnyHeader()
             .AllowAnyMethod()
             .AllowAnyOrigin());
             app.UseEndpoints(endpoints =>
