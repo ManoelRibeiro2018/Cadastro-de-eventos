@@ -15,13 +15,10 @@ namespace Eventos.API.Domain
         public int? PalestranteId { get; set; }
         public Palestrante Palestrante { get; set; }
 
-        public void Update(int id, string nome, string url, int eventoId, int? palestranteId)
+        public void Update( string nome, string url)
         {
-            Id = id;
             Nome = nome;
             URL = url;
-            EventoId = eventoId;
-            PalestranteId = palestranteId;
         }
     }
 }

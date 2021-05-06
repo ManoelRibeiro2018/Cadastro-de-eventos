@@ -15,5 +15,14 @@ namespace Eventos.API.Domain
         public string Email { get; set; }
         public List<RedeSocial> RedeSociais { get; set; }
         public List<Evento> Eventos { get; set; }
+
+        public void Update(string nome, string minicurriculo, string imageUrl, string telefone, string email)
+        {
+            Nome = nome;
+            MiniCurriculo = minicurriculo;
+            ImagemUrl = imageUrl;
+            Telefone = telefone;
+            Email = email;
+        } 
     }
 }

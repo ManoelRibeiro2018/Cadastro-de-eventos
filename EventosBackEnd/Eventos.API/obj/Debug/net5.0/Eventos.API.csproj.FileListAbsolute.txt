@@ -61,3 +61,4 @@ C:\Users\manoel.ribeiro.neto\Desktop\Estudo\EventosBackEnd\Eventos.API\bin\Debug
 C:\Users\manoel.ribeiro.neto\Desktop\Estudo\EventosBackEnd\Eventos.API\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\manoel.ribeiro.neto\Desktop\Estudo\EventosBackEnd\Eventos.API\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\manoel.ribeiro.neto\Desktop\Estudo\EventosBackEnd\Eventos.API\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\manoel.ribeiro.neto\Desktop\Estudo\EventosBackEnd\Eventos.API\obj\Debug\net5.0\Eventos.API.csprojAssemblyReference.cache

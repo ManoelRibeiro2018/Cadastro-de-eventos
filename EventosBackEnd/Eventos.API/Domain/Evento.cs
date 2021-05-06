@@ -19,13 +19,15 @@ namespace Eventos.API.Domain
         public List<RedeSocial>  RedesSociais { get; set; }
         public List<Palestrante> Palestrantes { get; set; }
 
-        public void Update(string local, DateTime dataEvento, string tema, int qtdPessoas, string imageUrl)
+        public void Update(string local, DateTime dataEvento, string tema, int qtdPessoas, string imageUrl,string telefone, string email)
         {
             Local = local;
             DataEvento = dataEvento;
             Tema = tema;
             QtdPessoas = qtdPessoas;
             ImageUrl = imageUrl;
+            Telefone = telefone;
+            Email = email;
         }
     }
 }

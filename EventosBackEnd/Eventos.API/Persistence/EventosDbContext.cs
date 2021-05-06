@@ -22,15 +22,31 @@ namespace Eventos.API.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Evento
-            //modelBuilder.Entity<PalestranteEventos>()
-            //   .HasKey(pe => new {pe.EventoId, pe.PalestranteId});
-
             modelBuilder.Entity<Evento>()
                 .HasKey(e => e.Id);
 
             modelBuilder.Entity<Evento>()
                 .HasMany(e => e.Palestrantes)
-                .WithMany(p => p.Eventos);               
+                .WithMany(p => p.Eventos);
+
+            modelBuilder.Entity<Evento>()
+                .HasMany(e => e.RedesSociais)
+                .WithOne(r => r.Evento)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Evento>()
+                .HasMany(e => e.Lotes)
+                .WithOne(l => l.Evento)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            //Palestrante
+
+            modelBuilder.Entity<Palestrante>()
+                .HasMany(p => p.RedeSociais)
+                .WithOne(r => r.Palestrante)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
 
         }
 

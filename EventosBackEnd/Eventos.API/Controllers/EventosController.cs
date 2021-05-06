@@ -12,24 +12,24 @@ namespace Eventos.API.Controllers
     [Route("api/eventos")]
     public class EventosController : ControllerBase
     {
-        private readonly IEventoInterface _dbContext;
+        private readonly IEventoInterface _dbEventoContext;
         public EventosController(IEventoInterface eventoDbContext)
         {
-            _dbContext = eventoDbContext;
+            _dbEventoContext = eventoDbContext;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllEvento()
         {
-            var evento = await _dbContext.GetAllEventosAsync();
+            var evento = await _dbEventoContext.GetAllEventosAsync();
             return Ok(evento);
         }
 
         [HttpGet("tema/{tema}")]
         public async Task<IActionResult> GetByTema(string tema)
         {
-            var evento = await _dbContext.GetAllEventosByTemaAsync(tema);
-            if(evento == null)
+            var evento = await _dbEventoContext.GetAllEventosByTemaAsync(tema);
+            if (evento == null)
             {
                 return NotFound("Não encontrado");
             }
@@ -39,7 +39,7 @@ namespace Eventos.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var evento = await _dbContext.GetEventoByIdAsync(id);
+            var evento = await _dbEventoContext.GetEventoByIdAsync(id);
             if (evento == null)
             {
                 return NotFound();
@@ -47,11 +47,10 @@ namespace Eventos.API.Controllers
             return Ok(evento);
         }
 
-
         [HttpPost]
         public async Task<IActionResult> Insert([FromBody] Evento model)
         {
-            var evento = await _dbContext.AddEvento(model);
+            var evento = await _dbEventoContext.AddEvento(model);
 
             return CreatedAtAction(
                 nameof(GetById),
@@ -59,24 +58,21 @@ namespace Eventos.API.Controllers
                 model);
         }
 
-
         [HttpPut("{id}")]
-        public  IActionResult Put(int id, [FromBody] Evento model)
-        {           
-            _dbContext.UpdateEvento(id,model);            
+        public IActionResult PutEvento(int id, [FromBody] Evento model)
+        {            
+            _dbEventoContext.UpdateEvento(id, model);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var evento = await _dbContext.GetEventoByIdAsync(id);
-            if (evento == null)
-            {
-                return Ok();
-            }
-            _dbContext.DeleteEvento(id);
+        public IActionResult DeleteEvento(int id)
+        {            
+            _dbEventoContext.DeleteEvento(id);
             return NoContent();
         }
+
+
+
     }
 }

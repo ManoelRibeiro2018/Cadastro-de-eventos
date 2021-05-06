@@ -16,25 +16,34 @@ namespace Eventos.API.Repository
         {
             _eventoDbContext = eventosDb;
         }
-
-        public Task<Palestrante> AddPalestrante(Palestrante palestrante)
+        public async Task<Palestrante> AddPalestrante(Palestrante model)
         {
-            _eventoDbContext.Palestrantes.Add(palestrante);
+            _eventoDbContext.Palestrantes.Add(model);
             _eventoDbContext.SaveChanges();
-
-            return this.GetPalestranteByIdAsync(palestrante.Id);
+            return await GetPalestranteById(model.Id);
         }
-        public Task<Palestrante> UpdatePalestrante(int id, Palestrante palestrante)
+        public async Task UpdatePalestrante(int id, Palestrante model)
         {
-            throw new NotImplementedException();
-        }
+            var palestrante = _eventoDbContext.Palestrantes.SingleOrDefault(p => p.Id == id);
+            if (palestrante == null)
+            {
+                throw new ArgumentException("Palestrante não encontrado");
+            }
 
-        public Task<Palestrante> DeletePalestrante(int id)
+            palestrante.Update(model.Nome, model.MiniCurriculo, model.ImagemUrl, model.Telefone, model.Email);
+            await _eventoDbContext.SaveChangesAsync();
+        }
+        public async Task DeletePalestrante(int id)
         {
-            throw new NotImplementedException();
+            var palestrante = _eventoDbContext.Palestrantes.SingleOrDefault(p => p.Id == id);
+            if (palestrante == null)
+            {
+                throw new ArgumentException("Palestrante não encontrado");
+            }
+            _eventoDbContext.Palestrantes.Remove(palestrante);
+            await _eventoDbContext.SaveChangesAsync();
         }
-
-        public async Task<Palestrante[]> GetAllPalestrantesAsync(bool includeEventos = false)
+        public async Task<List<Palestrante>> GetAllPalestrantes(bool includeEventos = false)
         {
             IQueryable<Palestrante> query = _eventoDbContext.Palestrantes
                  .Include(p => p.RedeSociais);
@@ -48,9 +57,9 @@ namespace Eventos.API.Repository
 
             query = query.OrderBy(e => e.Id);
 
-            return await query.ToArrayAsync();
+            return await query.ToListAsync();
         }
-        public async Task<Palestrante[]> GetAllPalestrantesByNomeAsync(string nome, bool includeEventos = false)
+        public async Task<List<Palestrante>> GetAllPalestrantesByNome(string nome, bool includeEventos = false)
         {
             IQueryable<Palestrante> query = _eventoDbContext.Palestrantes
                 .Include(p => p.RedeSociais);
@@ -64,9 +73,9 @@ namespace Eventos.API.Repository
 
             query = query.OrderBy(e => e.Id).Where(e => e.Nome.ToLower().Contains(nome.ToLower()));
 
-            return await query.ToArrayAsync();
+            return await query.ToListAsync();
         }
-        public async Task<Palestrante> GetPalestranteByIdAsync(int PalestranteId, bool includeEventos = false)
+        public async Task<Palestrante> GetPalestranteById(int PalestranteId, bool includeEventos = false)
         {
             IQueryable<Palestrante> query = _eventoDbContext.Palestrantes
                 .Include(p => p.RedeSociais);
@@ -83,6 +92,6 @@ namespace Eventos.API.Repository
             return await query.SingleOrDefaultAsync();
         }
 
-       
+
     }
 }

@@ -33,6 +33,8 @@ namespace Eventos.API
             services.AddDbContext<EventosDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Conexao")));
             services.AddScoped<IEventoInterface, EventoRepository>();
             services.AddScoped<IPalestranteInterface, PalestranteRepository>();
+            services.AddScoped<ILoteInterface, LoteRepository>();
+            services.AddScoped<IRedeSocialInterface, RedeSocialRepository>();
             services.AddControllers()
                 .AddNewtonsoftJson(n => n.SerializerSettings.ReferenceLoopHandling =
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore

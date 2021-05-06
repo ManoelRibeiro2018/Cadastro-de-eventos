@@ -15,5 +15,14 @@ namespace Eventos.API.Domain
         public int Quantidade { get; set; }
         public int EventoId { get; set; }
         public Evento Evento { get; set; }
+        public void Update(string nome, decimal preco, DateTime dataInicio, DateTime dataFim, int quantidade)
+        {
+            Nome = nome;
+            Preco = preco;
+            DataInicio = dataInicio;
+            DataFim = dataFim;
+            Quantidade = quantidade;
+
+        }
     }
 }
