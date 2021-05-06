@@ -41,7 +41,7 @@ namespace Eventos.API.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _dbcontext.DeleteRedeSocial(id);
-            return NoContent();
+            return NoContent(); 
         }
 
     }

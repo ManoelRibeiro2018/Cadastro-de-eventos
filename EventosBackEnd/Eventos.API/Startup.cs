@@ -1,3 +1,4 @@
+using Eventos.API.Extensions;
 using Eventos.API.Interface;
 using Eventos.API.Persistence;
 using Eventos.API.Repository;
@@ -31,10 +32,7 @@ namespace Eventos.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<EventosDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Conexao")));
-            services.AddScoped<IEventoInterface, EventoRepository>();
-            services.AddScoped<IPalestranteInterface, PalestranteRepository>();
-            services.AddScoped<ILoteInterface, LoteRepository>();
-            services.AddScoped<IRedeSocialInterface, RedeSocialRepository>();
+            services.AddAplicationService();
             services.AddControllers()
                 .AddNewtonsoftJson(n => n.SerializerSettings.ReferenceLoopHandling =
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore
