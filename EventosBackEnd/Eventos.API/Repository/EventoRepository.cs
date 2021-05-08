@@ -32,8 +32,8 @@ namespace Eventos.API.Repository
                 throw new ArgumentException("Usuario não encontrado!!");
             }
 
-            evento.Update(model.Local, model.DataEvento, model.Tema, model.QtdPessoas, model.ImageUrl);
-            await _eventoDbContext.SaveChangesAsync();
+            evento.Update(model.Local, model.DataEvento, model.Tema, model.QtdPessoas, model.ImageUrl, model.Telefone, model.Email);
+           await _eventoDbContext.SaveChangesAsync();
         }
 
         public async Task DeleteEvento(int id)

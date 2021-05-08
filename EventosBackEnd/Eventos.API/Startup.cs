@@ -32,7 +32,9 @@ namespace Eventos.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<EventosDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Conexao")));
+            
             services.AddAplicationService();
+
             services.AddControllers()
                 .AddNewtonsoftJson(n => n.SerializerSettings.ReferenceLoopHandling =
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore
