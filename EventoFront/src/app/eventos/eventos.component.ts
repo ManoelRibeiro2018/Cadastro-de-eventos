@@ -9,24 +9,23 @@ import { EventoService } from '../services/evento.service';
 })
 export class EventosComponent implements OnInit {
   public eventos: Evento[] = [];
-  private _filtroLista: string = '';
+  private filtroListado = '';
   public eventosFiltrado: Evento[] = [];
   public get filtroLista(): string{
-   return this._filtroLista;
+   return this.filtroListado;
   }
 
   public set filtroLista(value: string){
-     this._filtroLista = value;
+     this.filtroListado = value;
      this.eventosFiltrado = this.filtroLista ? this.filtroEventos(this.filtroLista) : this.eventos;
   }
 
   public filtroEventos(filtrarPor: string): Evento[]{
   filtrarPor = filtrarPor.toLocaleLowerCase();
-  console.log(filtrarPor)
   return this.eventos.filter(
     evento => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
     evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
-  )
+  );
 }
   constructor(private eventoService: EventoService) {}
 
@@ -35,13 +34,13 @@ export class EventosComponent implements OnInit {
   }
 
   public GetEventos(): void {
-    this.eventoService.getEvento().subscribe(
-      (_evento: Evento[]) =>{
-        this.eventos = _evento
+    const observer = {
+      next: (evento: Evento[]) =>{
+        this.eventos = evento;
         this.eventosFiltrado = this.eventos;
       },
-
-      error => console.log(error)
-    )
+      error: (error: any) => console.log(error)
+    }
+    this.eventoService.getEvento().subscribe(observer);
   }
 }

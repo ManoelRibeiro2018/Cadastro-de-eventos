@@ -16,11 +16,11 @@ export class EventoService {
     return this.http.get<Evento[]>(this.baseURL);
   }
 
-  public getEventosByTema(tema : string): Observable<Evento[]>{
+  public getEventosByTema(tema ): Observable<Evento[]>{
     return this.http.get<Evento[]>(`${this.baseURL}/${tema}`);
   }
 
-  public getEventoById(id : number): Observable<Evento>{
+  public getEventoById(id): Observable<Evento>{
     return this.http.get<Evento>(`${this.baseURL}/${id}`);
   }
 }
