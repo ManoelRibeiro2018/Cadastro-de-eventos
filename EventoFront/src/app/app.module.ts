@@ -5,6 +5,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import {ToastrModule} from 'ngx-toastr';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -33,7 +34,13 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     FormsModule,
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      progressBar: true
+    })
   ],
   providers: [EventoService],
   bootstrap: [AppComponent]
