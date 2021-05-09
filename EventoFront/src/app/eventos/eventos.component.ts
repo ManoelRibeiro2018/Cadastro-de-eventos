@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Evento } from '../models/Evento';
 import { EventoService } from '../services/evento.service';
 
@@ -8,6 +9,7 @@ import { EventoService } from '../services/evento.service';
   styleUrls: ['./eventos.component.scss'],
 })
 export class EventosComponent implements OnInit {
+  modalRef: BsModalRef;
   public eventos: Evento[] = [];
   private filtroListado = '';
   public eventosFiltrado: Evento[] = [];
@@ -27,7 +29,7 @@ export class EventosComponent implements OnInit {
     evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
   );
 }
-  constructor(private eventoService: EventoService) {}
+  constructor(private eventoService: EventoService, private modalService: BsModalService) {}
 
   ngOnInit(): void {
     this.GetEventos();
@@ -43,4 +45,17 @@ export class EventosComponent implements OnInit {
     };
     this.eventoService.getEvento().subscribe(observer);
   }
+  openModal(template: TemplateRef<any>): void{
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+
+  confirm(): void {
+    this.modalRef.hide();
+  }
+
+  decline(): void {
+    this.modalRef.hide();
+  }
+
+
 }
