@@ -35,12 +35,12 @@ export class EventosComponent implements OnInit {
 
   public GetEventos(): void {
     const observer = {
-      next: (evento: Evento[]) =>{
+      next: (evento: Evento[]) => {
         this.eventos = evento;
         this.eventosFiltrado = this.eventos;
       },
       error: (error: any) => console.log(error)
-    }
+    };
     this.eventoService.getEvento().subscribe(observer);
   }
 }

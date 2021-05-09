@@ -1,3 +1,4 @@
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
   integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -18,7 +19,7 @@
       <th>Tema</th>
       <th>Local</th>
       <th>Data</th>
-      <th>Qtd Pessoas</th>
+      <th>Pessoas</th>
       <th>Lote</th>
       <th>Opções</th>
     </tr>
@@ -31,12 +32,16 @@
       </td>
       <td>{{evento.tema}}</td>
       <td>{{evento.local}}</td>
-      <td>{{evento.dataEvento}}</td>
+      <td>{{evento.dataEvento | date}}</td>
       <td>{{evento.qtdPessoas}}</td>
       <td>{{evento.lotes[0].nome}}</td>
       <td>
-        <button type="button" class="btn btn-primary btn-sm mr-2">Editar</button>
-        <button type="button" class="btn btn-danger btn-sm">Excluir</button>
+        <button type="button" class="btn btn-primary btn-sm mr-2" tooltip="Editar">
+          Editar
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" tooltip="Editar">
+           Excluir
+          </button>
       </td>
     </tr>
   </tbody>
