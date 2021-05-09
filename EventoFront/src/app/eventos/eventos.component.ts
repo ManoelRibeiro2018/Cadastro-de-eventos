@@ -3,6 +3,8 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Evento } from '../models/Evento';
 import { EventoService } from '../services/evento.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-eventos',
@@ -16,6 +18,7 @@ export class EventosComponent implements OnInit {
   public eventosFiltrado: Evento[] = [];
   public get filtroLista(): string{
    return this.filtroListado;
+
   }
 
   public set filtroLista(value: string){
@@ -30,10 +33,16 @@ export class EventosComponent implements OnInit {
     evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
   );
 }
-  constructor(private eventoService: EventoService, private modalService: BsModalService,  private toastr: ToastrService) {}
+  // tslint:disable-next-line: max-line-length
+  constructor(private eventoService: EventoService, private modalService: BsModalService,  private toastr: ToastrService, private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
     this.GetEventos();
+    this.spinner.show();
+
+    setTimeout(() => {
+     /** spinner ends after 5 seconds */
+   }, 5000);
   }
 
   public GetEventos(): void {
@@ -42,9 +51,14 @@ export class EventosComponent implements OnInit {
         this.eventos = evento;
         this.eventosFiltrado = this.eventos;
       },
-      error: (error: any) => console.log(error)
+      error: (error: any) =>{
+        this.spinner.hide();
+        this.toastr.error('Erro ao carregar os eventos');
+      },
+      complete: () => this.spinner.hide()
     };
     this.eventoService.getEvento().subscribe(observer);
+
   }
   openModal(template: TemplateRef<any>): void{
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
