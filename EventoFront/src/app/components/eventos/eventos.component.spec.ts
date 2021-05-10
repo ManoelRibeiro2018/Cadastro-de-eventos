@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { from } from 'rxjs';
 
 import { EventosComponent } from './eventos.component';
 
