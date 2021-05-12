@@ -12,67 +12,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./eventos.component.scss'],
 })
 export class EventosComponent implements OnInit {
-  modalRef: BsModalRef;
-  public eventos: Evento[] = [];
-  private filtroListado = '';
-  public eventosFiltrado: Evento[] = [];
-
-  public get filtroLista(): string{
-   return this.filtroListado;
-
-  }
-
-  public set filtroLista(value: string){
-     this.filtroListado = value;
-     this.eventosFiltrado = this.filtroLista ? this.filtroEventos(this.filtroLista) : this.eventos;
-  }
-
-  public filtroEventos(filtrarPor: string): Evento[]{
-  filtrarPor = filtrarPor.toLocaleLowerCase();
-  return this.eventos.filter(
-    evento => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
-    evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
-  );
-}
-  // tslint:disable-next-line: max-line-length
-  constructor(private eventoService: EventoService, private modalService: BsModalService,  private toastr: ToastrService, private spinner: NgxSpinnerService) {}
-
-  ngOnInit(): void {
-    this.GetEventos();
-    this.spinner.show();
-
-    setTimeout(() => {
-     /** spinner ends after 5 seconds */
-   }, 5000);
-  }
-
-  public GetEventos(): void {
-    const observer = {
-      next: (evento: Evento[]) => {
-        this.eventos = evento;
-        this.eventosFiltrado = this.eventos;
-      },
-      error: (error: any) =>{
-        this.spinner.hide();
-        this.toastr.error('Erro ao carregar os eventos');
-      },
-      complete: () => this.spinner.hide()
-    };
-    this.eventoService.getEvento().subscribe(observer);
-
-  }
-  openModal(template: TemplateRef<any>): void{
-    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
-  }
-
-  confirm(): void {
-    this.modalRef.hide();
-    this.toastr.success('Deletado com sucesso!');
-  }
-
-  decline(): void {
-    this.modalRef.hide();
-  }
-
+ngOnInit(): void{}
 
 }
