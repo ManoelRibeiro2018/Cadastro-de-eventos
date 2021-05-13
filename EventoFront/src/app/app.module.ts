@@ -18,7 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { EventoService } from './services/evento.service';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ContatosComponent } from './components/contatos/contatos.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
+import { PerfilComponent } from './components/user/perfil/perfil.component';
 import { DasboardComponent } from './components/dasboard/dasboard.component';
 import { TituloComponent } from './shared/Titulo/Titulo.component';
 import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
