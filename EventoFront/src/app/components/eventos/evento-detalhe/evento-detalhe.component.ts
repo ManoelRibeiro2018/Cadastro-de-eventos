@@ -30,4 +30,8 @@ export class EventoDetalheComponent implements OnInit {
       telefone: ['', Validators.required]
     });
   }
+
+  public resetForm(): void{
+    this.form.reset();
+  }
 }
