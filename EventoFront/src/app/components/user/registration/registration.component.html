@@ -37,6 +37,9 @@
     <div *ngIf="f.email.errors?.required && f.email.touched" class="invalid-feedback">
       e-mail é obrigatório
     </div>
+    <div *ngIf="f.email.errors?.email && f.email.touched" class="invalid-feedback">
+      informe o e-mail corretamente
+    </div>
   </div>
 	<div class="form-group">
 		<label for="">Usuario:</label>
