@@ -13,6 +13,10 @@ export class PerfilComponent implements OnInit {
    get f(){
     return this.form.controls;
   }
+  public resetForm(event : any):void{
+    event.preventDefault();
+    this.form.reset;
+  }
 
   constructor(private fb: FormBuilder) { }
 
@@ -36,3 +40,5 @@ export class PerfilComponent implements OnInit {
       },formOptions)
     }
 }
+
+
