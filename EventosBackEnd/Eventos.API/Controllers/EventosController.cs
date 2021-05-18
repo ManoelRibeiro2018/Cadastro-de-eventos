@@ -1,5 +1,4 @@
 ﻿using Eventos.API.Domain;
-using Eventos.API.DTO;
 using Eventos.API.Interface;
 using Eventos.API.Persistence;
 using Microsoft.AspNetCore.Mvc;
@@ -22,32 +21,8 @@ namespace Eventos.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllEvento()
         {
-            var eventos = await _dbEventoContext.GetAllEventosAsync(true);
-            if (eventos == null)
-            {
-                return NotFound("Nenhum evento encontrado");
-            }
-            var eventoViewModel = new List<EventoDTO>();
-
-            // não deveria está esposto
-            foreach (var evento in eventos)
-            {
-                eventoViewModel.Add(new EventoDTO
-                {
-                    Id = evento.Id,
-                    Local = evento.Local,
-                    DataEvento = evento.DataEvento,
-                    Tema = evento.Tema,
-                    QtdPessoas = evento.QtdPessoas,
-                    ImageUrl = evento.ImageUrl,
-                    Telefone = evento.Telefone,
-                    Email = evento.Email
-                });
-            }
-
-          
-            
-            return Ok(eventoViewModel);
+            var evento = await _dbEventoContext.GetAllEventosAsync();
+            return Ok(evento);
         }
 
         [HttpGet("tema/{tema}")]

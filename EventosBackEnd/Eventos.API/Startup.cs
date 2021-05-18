@@ -1,21 +1,12 @@
 using Eventos.API.Extensions;
-using Eventos.API.Interface;
 using Eventos.API.Persistence;
-using Eventos.API.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Eventos.API
 {
@@ -34,7 +25,6 @@ namespace Eventos.API
             services.AddDbContext<EventosDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Conexao")));
             
             services.AddAplicationService();
-
             services.AddControllers()
                 .AddNewtonsoftJson(n => n.SerializerSettings.ReferenceLoopHandling =
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore
