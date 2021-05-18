@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Eventos.API.Domain
+namespace Eventos.API.DTO
 {
-    public class Evento
+    public class EventoDTO
     {
         public int Id { get; set; }
 
@@ -20,7 +22,7 @@ namespace Eventos.API.Domain
         public string Tema { get; set; }
 
         [Required(ErrorMessage = "Campo {0} é obrigatório")]
-        [Range(1,12000, ErrorMessage ="Quatidade de pessoas deve está entre 1 à 12000")]
+        [Range(1, 12000, ErrorMessage = "Quatidade de pessoas deve está entre 1 à 12000")]
         public int QtdPessoas { get; set; }
 
         [Required]
@@ -33,20 +35,6 @@ namespace Eventos.API.Domain
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-        public List<Lote> Lotes { get; set; }
-        public List<RedeSocial>  RedesSociais { get; set; }
-        public List<Palestrante> Palestrantes { get; set; }
 
-        public void Update(string local, DateTime dataEvento, string tema, int qtdPessoas, string imageUrl,string telefone, string email)
-        {
-            Local = local;
-            DataEvento = dataEvento;
-            Tema = tema;
-            QtdPessoas = qtdPessoas;
-            ImageUrl = imageUrl;
-            Telefone = telefone;
-            Email = email;
-        }
     }
-
 }

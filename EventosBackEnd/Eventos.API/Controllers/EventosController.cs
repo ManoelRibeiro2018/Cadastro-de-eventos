@@ -1,4 +1,5 @@
 ﻿using Eventos.API.Domain;
+using Eventos.API.DTO;
 using Eventos.API.Interface;
 using Eventos.API.Persistence;
 using Microsoft.AspNetCore.Mvc;
@@ -12,23 +13,23 @@ namespace Eventos.API.Controllers
     [Route("api/eventos")]
     public class EventosController : ControllerBase
     {
-        private readonly IEventoInterface _dbEventoContext;
-        public EventosController(IEventoInterface eventoDbContext)
+        private readonly IEventoDTOInterface _eventoDTOInterface;
+        public EventosController(IEventoDTOInterface eventoDTOInterface)
         {
-            _dbEventoContext = eventoDbContext;
+            _eventoDTOInterface = eventoDTOInterface;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllEvento()
         {
-            var evento = await _dbEventoContext.GetAllEventosAsync();
+            var evento = await _eventoDTOInterface.GetAllEventosAsync();
             return Ok(evento);
         }
 
         [HttpGet("tema/{tema}")]
         public async Task<IActionResult> GetByTema(string tema)
         {
-            var evento = await _dbEventoContext.GetAllEventosByTemaAsync(tema);
+            var evento = await _eventoDTOInterface.GetAllEventosByTemaAsync(tema);
             if (evento == null)
             {
                 return NotFound("Não encontrado");
@@ -39,7 +40,7 @@ namespace Eventos.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var evento = await _dbEventoContext.GetEventoByIdAsync(id);
+            var evento = await _eventoDTOInterface.GetEventoByIdAsync(id);
             if (evento == null)
             {
                 return NotFound();
@@ -48,27 +49,28 @@ namespace Eventos.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Insert([FromBody] Evento model)
-        {
-            var evento = await _dbEventoContext.AddEvento(model);
+        public async Task<IActionResult> Insert([FromBody] EventoDTO model)
+        {           
+
+            var evento = await _eventoDTOInterface.AddEvento(model);
 
             return CreatedAtAction(
                 nameof(GetById),
                 new { id = evento.Id },
-                model);
+                evento);
         }
 
         [HttpPut("{id}")]
-        public IActionResult PutEvento(int id, [FromBody] Evento model)
-        {            
-            _dbEventoContext.UpdateEvento(id, model);
+        public IActionResult PutEvento(int id, [FromBody] EventoDTO model)
+        {
+            _eventoDTOInterface.UpdateEvento(id, model);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteEvento(int id)
-        {            
-            _dbEventoContext.DeleteEvento(id);
+        {
+            _eventoDTOInterface.DeleteEvento(id);
             return NoContent();
         }
 

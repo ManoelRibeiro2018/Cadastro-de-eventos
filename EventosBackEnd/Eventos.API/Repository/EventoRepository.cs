@@ -38,14 +38,14 @@ namespace Eventos.API.Repository
 
         public async Task DeleteEvento(int id)
         {
-            var evento = await _eventoDbContext.Eventos.SingleOrDefaultAsync(e => e.Id == id);
+            var evento =  _eventoDbContext.Eventos.SingleOrDefault(e => e.Id == id);
             if (evento == null)
             {
                 throw new ArgumentException("Usuário invalido");
             }
 
             _eventoDbContext.Eventos.Remove(evento);
-            _eventoDbContext.SaveChanges();
+            await _eventoDbContext.SaveChangesAsync();
         }
         public async Task<List<Evento>> GetAllEventosAsync(bool includePalestrante = false)
         {

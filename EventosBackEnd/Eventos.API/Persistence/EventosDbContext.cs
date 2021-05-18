@@ -30,6 +30,10 @@ namespace Eventos.API.Persistence
                 .WithMany(p => p.Eventos);
 
             modelBuilder.Entity<Evento>()
+             .Property(e => e.Tema)
+             .HasMaxLength(3);
+
+            modelBuilder.Entity<Evento>()
                 .HasMany(e => e.RedesSociais)
                 .WithOne(r => r.Evento)
                 .OnDelete(DeleteBehavior.Cascade);

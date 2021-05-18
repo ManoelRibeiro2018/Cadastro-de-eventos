@@ -1,5 +1,7 @@
-﻿using Eventos.API.Interface;
+﻿using Eventos.API.DTO;
+using Eventos.API.Interface;
 using Eventos.API.Repository;
+using Eventos.API.Service;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,7 @@ namespace Eventos.API.Extensions
             services.AddScoped<IPalestranteInterface, PalestranteRepository>();
             services.AddScoped<ILoteInterface, LoteRepository>();
             services.AddScoped<IRedeSocialInterface, RedeSocialRepository>();
+            services.AddScoped<IEventoDTOInterface, EventoService>();
 
             return services;
 
