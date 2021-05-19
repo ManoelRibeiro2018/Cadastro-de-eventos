@@ -13,6 +13,7 @@ namespace Eventos.API.Helpers
         public EventoProfile()
         {
             CreateMap<Evento, EventoDTO>().ReverseMap();
+            CreateMap<Lote, LoteDTO>().ReverseMap();
         }
     }
 }

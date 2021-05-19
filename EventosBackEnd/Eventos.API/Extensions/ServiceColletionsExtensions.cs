@@ -19,6 +19,7 @@ namespace Eventos.API.Extensions
             services.AddScoped<ILoteInterface, LoteRepository>();
             services.AddScoped<IRedeSocialInterface, RedeSocialRepository>();
             services.AddScoped<IEventoDTOInterface, EventoService>();
+            services.AddScoped<ILoteDTOInterface, LoteService>();
 
             return services;
 

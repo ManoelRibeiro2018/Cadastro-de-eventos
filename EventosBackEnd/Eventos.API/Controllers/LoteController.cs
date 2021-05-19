@@ -1,4 +1,5 @@
 ﻿using Eventos.API.Domain;
+using Eventos.API.DTO;
 using Eventos.API.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,13 +12,13 @@ namespace Eventos.API.Controllers
     [Route("lotes")]
     public class LoteController : ControllerBase
     {
-        private readonly ILoteInterface _dbLoteContext;
-        public LoteController(ILoteInterface dbLoteContext)
+        private readonly ILoteDTOInterface _dbLoteContext;
+        public LoteController(ILoteDTOInterface dbLoteContext)
         {
             _dbLoteContext = dbLoteContext;
         }
         [HttpPost]
-        public IActionResult PostLote([FromBody] Lote model)
+        public IActionResult PostLote([FromBody] LoteDTO model)
         {
             var lote = _dbLoteContext.AddLote(model);
             return Ok(lote);
@@ -36,7 +37,7 @@ namespace Eventos.API.Controllers
         }
 
         [HttpPut("{idEvento}/lote/{id}")]
-        public IActionResult PutLote(int idEvento, int id, [FromBody] Lote model)
+        public IActionResult PutLote(int idEvento, int id, [FromBody] LoteDTO model)
         {
             _dbLoteContext.Update(idEvento, id, model);
             return Ok();
