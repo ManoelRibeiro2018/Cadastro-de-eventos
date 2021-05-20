@@ -18,8 +18,10 @@ namespace Eventos.API.Extensions
             services.AddScoped<IPalestranteInterface, PalestranteRepository>();
             services.AddScoped<ILoteInterface, LoteRepository>();
             services.AddScoped<IRedeSocialInterface, RedeSocialRepository>();
+
             services.AddScoped<IEventoDTOInterface, EventoService>();
             services.AddScoped<ILoteDTOInterface, LoteService>();
+            services.AddScoped<IPalestranteDTOInterface, PalestranteService>();
 
             return services;
 

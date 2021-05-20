@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Eventos.API.Domain
+namespace Eventos.API.DTO
 {
-    public class Palestrante
+    public class PalestranteDTO
     {
         public int Id { get; set; }
 
@@ -16,7 +16,7 @@ namespace Eventos.API.Domain
         public string Nome { get; set; }
 
         [Required]
-        public string MiniCurriculo  { get; set; }
+        public string MiniCurriculo { get; set; }
 
         [RegularExpression(@"(. Png | .jpg | .gif) $", ErrorMessage = "Imagem invalida")]
         public string ImagemUrl { get; set; }
@@ -27,16 +27,6 @@ namespace Eventos.API.Domain
 
         [EmailAddress]
         public string Email { get; set; }
-        public List<RedeSocial> RedeSociais { get; set; }
-        public List<Evento> Eventos { get; set; }
 
-        public void Update(string nome, string minicurriculo, string imageUrl, string telefone, string email)
-        {
-            Nome = nome;
-            MiniCurriculo = minicurriculo;
-            ImagemUrl = imageUrl;
-            Telefone = telefone;
-            Email = email;
-        } 
     }
 }

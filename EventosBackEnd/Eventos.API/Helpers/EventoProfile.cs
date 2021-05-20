@@ -14,6 +14,7 @@ namespace Eventos.API.Helpers
         {
             CreateMap<Evento, EventoDTO>().ReverseMap();
             CreateMap<Lote, LoteDTO>().ReverseMap();
+            CreateMap<Palestrante, PalestranteDTO>().ReverseMap();
         }
     }
 }

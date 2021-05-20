@@ -1,11 +1,6 @@
-﻿using Eventos.API.Domain;
-using Eventos.API.DTO;
+﻿using Eventos.API.DTO;
 using Eventos.API.Interface;
-using Eventos.API.Persistence;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Eventos.API.Controllers
@@ -38,7 +33,7 @@ namespace Eventos.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetEventoById(int id)
         {
             var evento = await _eventoDTOInterface.GetEventoByIdAsync(id);
             if (evento == null)
@@ -55,7 +50,7 @@ namespace Eventos.API.Controllers
             var evento = await _eventoDTOInterface.AddEvento(model);
 
             return CreatedAtAction(
-                nameof(GetById),
+                nameof(GetEventoById),
                 new { id = evento.Id },
                 evento);
         }

@@ -33,7 +33,7 @@ namespace Eventos.API.Repository
             }
 
             lote.Update(model.Nome, model.Preco, model.DataFim, model.DataFim, model.Quantidade);
-
+            _eventoDbContext.SaveChanges();
         }
 
         public async Task<bool> Delete(int idEvento, int id)

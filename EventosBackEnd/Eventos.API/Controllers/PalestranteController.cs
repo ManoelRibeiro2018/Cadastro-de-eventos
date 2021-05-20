@@ -1,9 +1,6 @@
-﻿using Eventos.API.Domain;
+﻿using Eventos.API.DTO;
 using Eventos.API.Interface;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Eventos.API.Controllers
@@ -11,8 +8,8 @@ namespace Eventos.API.Controllers
     [Route("api/palestrantes")]
     public class PalestranteController : ControllerBase
     {
-        private readonly IPalestranteInterface _dbcontext;
-        public PalestranteController(IPalestranteInterface palestranteInterface)
+        private readonly IPalestranteDTOInterface _dbcontext;
+        public PalestranteController(IPalestranteDTOInterface palestranteInterface)
         {
             _dbcontext = palestranteInterface;
         }
@@ -50,17 +47,17 @@ namespace Eventos.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Palestrante model)
+        public async Task<IActionResult> Post([FromBody] PalestranteDTO model)
         {
             var palestrante = await _dbcontext.AddPalestrante(model);
             return CreatedAtAction(
                 nameof(GetById),
-                new { id = model.Id },
-                model);
+                new { id = palestrante.Id },
+                palestrante);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Put(int id, [FromBody] Palestrante model)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] PalestranteDTO model)
         {
             await _dbcontext.UpdatePalestrante(id, model);
             return NoContent();
