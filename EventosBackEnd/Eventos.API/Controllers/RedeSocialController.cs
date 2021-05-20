@@ -1,14 +1,16 @@
 ﻿using Eventos.API.Domain;
+using Eventos.API.DTO;
 using Eventos.API.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Eventos.API.Controllers
 {
+    [Route("api/RedeSociais")]
     public class RedeSocialController : ControllerBase
     {
-        private readonly IRedeSocialInterface _dbcontext;
-        public RedeSocialController(IRedeSocialInterface redeSocialInterface)
+        private readonly IRedeSocialDTOInterface _dbcontext;
+        public RedeSocialController(IRedeSocialDTOInterface redeSocialInterface)
         {
             _dbcontext = redeSocialInterface;
         }
@@ -21,14 +23,14 @@ namespace Eventos.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] RedeSocial model)
+        public async Task<IActionResult> Post([FromBody] RedeSocialDTO model)
         {
             var redeSocial = await _dbcontext.AddRedeSocial(model);
             return Ok(redeSocial);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] RedeSocial model)
+        public async Task<IActionResult> Put(int id, [FromBody] RedeSocialDTO model)
         {
            await _dbcontext.UpdateRedeSocial(id, model);
             return NoContent();

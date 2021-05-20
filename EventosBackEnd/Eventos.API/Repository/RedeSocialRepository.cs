@@ -19,8 +19,8 @@ namespace Eventos.API.Repository
         public async Task<RedeSocial> AddRedeSocial(RedeSocial model)
         {
             _eventoDbContext.RedeSociais.Add(model);
-            await _eventoDbContext.SaveChangesAsync();
-            return  _eventoDbContext.RedeSociais.FirstOrDefault(r => r.Id == model.Id);
+             _eventoDbContext.SaveChanges();
+            return await  _eventoDbContext.RedeSociais.FirstOrDefaultAsync(r => r.Id == model.Id);
         }
         public async Task DeleteRedeSocial(int id)
         {
