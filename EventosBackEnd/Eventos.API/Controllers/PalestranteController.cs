@@ -35,16 +35,6 @@ namespace Eventos.API.Controllers
             }
             return Ok(palestrante);
         }
-        [HttpGet("{nome}")]
-        public async Task<IActionResult> GetAlByName(string name)
-        {
-            var palestrante = await _dbcontext.GetAllPalestrantesByNome(name);
-            if (palestrante == null)
-            {
-                return NotFound();
-            }
-            return Ok(palestrante);
-        }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] PalestranteDTO model)

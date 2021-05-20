@@ -59,22 +59,6 @@ namespace Eventos.API.Repository
 
             return await query.ToListAsync();
         }
-        public async Task<List<Palestrante>> GetAllPalestrantesByNome(string nome, bool includeEventos = false)
-        {
-            IQueryable<Palestrante> query = _eventoDbContext.Palestrantes
-                .Include(p => p.RedeSociais);
-
-            if (includeEventos)
-            {
-                query = query
-                    .Include(p => p.Eventos)
-                    .ThenInclude(e => e.Palestrantes);
-            }
-
-            query = query.OrderBy(e => e.Id).Where(e => e.Nome.ToLower().Contains(nome.ToLower()));
-
-            return await query.ToListAsync();
-        }
         public async Task<Palestrante> GetPalestranteById(int PalestranteId, bool includeEventos = false)
         {
             IQueryable<Palestrante> query = _eventoDbContext.Palestrantes

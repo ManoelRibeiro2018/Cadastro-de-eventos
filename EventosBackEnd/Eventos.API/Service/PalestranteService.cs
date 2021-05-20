@@ -26,7 +26,11 @@ namespace Eventos.API.Service
             return _mapper.Map<PalestranteDTO>(palestrante);
             
         }
-
+        public async Task UpdatePalestrante(int id, PalestranteDTO model)
+        {
+            var palestrante = _mapper.Map<Palestrante>(model);
+            await _palestranteInterface.UpdatePalestrante(id, palestrante);
+        }
         public async Task DeletePalestrante(int id)
         {
           await _palestranteInterface.DeletePalestrante(id);
@@ -43,16 +47,6 @@ namespace Eventos.API.Service
            return _mapper.Map<List<PalestranteDTO>>(palestrantes);
         }
 
-        public async Task<List<PalestranteDTO>> GetAllPalestrantesByNome(string nome, bool includeEventos = false)
-        {
-            var palestrantes = await _palestranteInterface.GetAllPalestrantesByNome(nome, includeEventos);
-            if (palestrantes == null)
-            {
-                return null;
-            }
-            return _mapper.Map<List<PalestranteDTO>>(palestrantes);
-        }
-
         public async Task<PalestranteDTO> GetPalestranteById(int palestranteId, bool includeEventos = false)
         {
             var evento = await _palestranteInterface.GetPalestranteById(palestranteId, includeEventos);
@@ -63,10 +57,5 @@ namespace Eventos.API.Service
             return _mapper.Map<PalestranteDTO>(evento);
         }
 
-        public async Task UpdatePalestrante(int id, PalestranteDTO model)
-        {
-            var palestrante = _mapper.Map<Palestrante>(model);
-            await _palestranteInterface.UpdatePalestrante(id, palestrante);
-        }
     }
 }

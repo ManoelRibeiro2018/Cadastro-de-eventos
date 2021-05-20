@@ -11,7 +11,6 @@ namespace Eventos.API.Interface
         Task<PalestranteDTO> AddPalestrante(PalestranteDTO model);
         Task UpdatePalestrante(int id, PalestranteDTO model);
         Task DeletePalestrante(int id);
-        Task<List<PalestranteDTO>> GetAllPalestrantesByNome(string nome, bool includeEventos = false);
         Task<List<PalestranteDTO>> GetAllPalestrantes(bool includeEventos = false);
         Task<PalestranteDTO> GetPalestranteById(int palestranteId, bool includeEventos = false);
     }
