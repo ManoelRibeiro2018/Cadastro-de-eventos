@@ -19,19 +19,22 @@ namespace Eventos.API.Repository
         public async Task<RedeSocial> AddRedeSocial(RedeSocial model)
         {
             _eventoDbContext.RedeSociais.Add(model);
-             _eventoDbContext.SaveChanges();
-            return await  _eventoDbContext.RedeSociais.FirstOrDefaultAsync(r => r.Id == model.Id);
+            _eventoDbContext.SaveChanges();
+            return await _eventoDbContext.RedeSociais.FirstOrDefaultAsync(r => r.Id == model.Id);
         }
         public async Task DeleteRedeSocial(int id)
         {
+
             var redeSocial = _eventoDbContext.RedeSociais.SingleOrDefault(r => r.Id == id);
+
+
             if (redeSocial == null)
             {
                 throw new ArgumentException("Rede Social não encotrada");
             }
 
             _eventoDbContext.RedeSociais.Remove(redeSocial);
-          await  _eventoDbContext.SaveChangesAsync();
+            await _eventoDbContext.SaveChangesAsync();
         }
         public async Task UpdateRedeSocial(int id, RedeSocial model)
         {
@@ -51,6 +54,6 @@ namespace Eventos.API.Repository
             return await redeSocial.ToListAsync();
         }
 
-       
+
     }
 }

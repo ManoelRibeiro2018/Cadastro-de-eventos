@@ -27,7 +27,7 @@ namespace Eventos.API.Controllers
             var evento = await _eventoDTOInterface.GetAllEventosByTemaAsync(tema);
             if (evento == null)
             {
-                return NotFound("Não encontrado");
+                return NoContent();
             }
             return Ok(evento);
         }
@@ -38,21 +38,22 @@ namespace Eventos.API.Controllers
             var evento = await _eventoDTOInterface.GetEventoByIdAsync(id);
             if (evento == null)
             {
-                return NotFound();
+                return NoContent();
             }
             return Ok(evento);
         }
 
         [HttpPost]
         public async Task<IActionResult> Insert([FromBody] EventoDTO model)
-        {           
+        {
 
-            var evento = await _eventoDTOInterface.AddEvento(model);
+           
+                var evento = await _eventoDTOInterface.AddEvento(model);
 
-            return CreatedAtAction(
-                nameof(GetEventoById),
-                new { id = evento.Id },
-                evento);
+                return CreatedAtAction(
+                    nameof(GetEventoById),
+                    new { id = evento.Id },
+                    evento); 
         }
 
         [HttpPut("{id}")]
@@ -68,8 +69,6 @@ namespace Eventos.API.Controllers
             _eventoDTOInterface.DeleteEvento(id);
             return NoContent();
         }
-
-
 
     }
 }

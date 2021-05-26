@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidatorPassword } from '@app/helpers/ValidatorPassword';
 
 @Component({
@@ -13,7 +13,7 @@ export class PerfilComponent implements OnInit {
    get f(){
     return this.form.controls;
   }
-  public resetForm(event : any):void{
+  public resetForm(event: any): void{
     event.preventDefault();
     this.form.reset;
   }
@@ -23,6 +23,12 @@ export class PerfilComponent implements OnInit {
   ngOnInit() {
     this.validation();
   }
+
+
+  public cssValidator(value: AbstractControl): any{
+    return {'is-invalid': value.errors && value.touched};
+  }
+
     private validation(): void{
       const formOptions: AbstractControlOptions ={
         validators: ValidatorPassword.MusMatch('senha', 'confirmaSenha')
@@ -37,7 +43,7 @@ export class PerfilComponent implements OnInit {
         descricao: ['', Validators.required],
         senha: ['', [Validators.required], Validators.minLength(4)],
         confirmaSenha: ['', Validators.required],
-      },formOptions)
+      }, formOptions );
     }
 }
 
