@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
 <div class="card rounded shadow-sm p-3">
   <form [formGroup]="form">
     <div class="p-3">
@@ -28,8 +29,13 @@
         </div>
         <div class="form-group col-md-4">
           <label>Data e Hora</label>
-          <input type="datetime" class="form-control" [ngClass]="{'is-invalid': f.dataEvento.errors && f.dataEvento.touched}"
-            formControlName="dataEvento" placeholder="">
+          <input type="datetime"
+          bsDatepicker
+          [bsConfig]="Dsconfig()"
+           class="form-control"
+          [ngClass]="{'is-invalid': f.dataEvento.errors && f.dataEvento.touched}"
+            formControlName="dataEvento"
+            >
           <div *ngIf="f.dataEvento.errors?.required && f.dataEvento.touched" class="invalid-feedback">
             Data e Hora é obrigatório
           </div>
@@ -79,7 +85,6 @@
           Cancelar Alteração
         </button>
         <button class="btn btn-success" [disabled]="!form.valid">
-          <span class="spinner-border spinner-border-sm mr-1" ></span>
           Salvar Evento
         </button>
       </div>
